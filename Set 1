@@ -1,0 +1,53 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+data = {
+    "Month": ["January", "February", "March", "April", "May"],
+    "Sales": [15000, 18000, 22000, 20000, 23000]
+}
+
+df = pd.DataFrame(data)
+#Line Chart – Monthly Sales
+plt.figure()
+plt.plot(df["Month"], df["Sales"], marker='o')
+plt.title("Monthly Sales Trend")
+plt.xlabel("Month")
+plt.ylabel("Sales (in $)")
+plt.grid()
+plt.show()
+#Bar Chart – Top-Selling Months (Products Equivalent)
+plt.figure()
+plt.bar(df["Month"], df["Sales"])
+plt.title("Top Sales by Month")
+plt.xlabel("Month")
+plt.ylabel("Sales (in $)")
+plt.show()
+#Scatter Plot – Advertising Budget vs Sales
+df["Ad_Budget"] = [2000, 2500, 3000, 2800, 3200]
+
+plt.figure()
+plt.scatter(df["Ad_Budget"], df["Sales"])
+plt.title("Advertising Budget vs Sales")
+plt.xlabel("Advertising Budget ($)")
+plt.ylabel("Sales ($)")
+plt.show()
+#Interactive Dashboard (Using Plotly)
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+fig = make_subplots(rows=1, cols=2, subplot_titles=("Monthly Sales Trend", "Sales by Month"))
+
+# Line Chart
+fig.add_trace(
+    go.Scatter(x=df["Month"], y=df["Sales"], mode='lines+markers', name="Sales"),
+    row=1, col=1
+)
+
+# Bar Chart
+fig.add_trace(
+    go.Bar(x=df["Month"], y=df["Sales"], name="Sales"),
+    row=1, col=2
+)
+
+fig.update_layout(title="Interactive Sales Dashboard")
+
+fig.show()
