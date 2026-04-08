@@ -1,0 +1,49 @@
+import pandas as pd
+
+data = {
+    "Employee_ID": [1, 2, 3, 4, 5],
+    "Department": ["Sales", "HR", "Marketing", "Sales", "HR"],
+    "Years_of_Service": [5, 3, 7, 4, 2],
+    "Performance_Score": [85, 92, 78, 90, 76]
+}
+
+df = pd.DataFrame(data)
+
+#Line Chart – Performance Trend
+import matplotlib.pyplot as plt
+df_sorted = df.sort_values("Years_of_Service")
+
+plt.figure()
+for dept in df["Department"].unique():
+    dept_data = df_sorted[df_sorted["Department"] == dept]
+    plt.plot(dept_data["Years_of_Service"],
+             dept_data["Performance_Score"],
+             marker='o',
+             label=dept)
+
+plt.title("Employee Performance Trend Over Time")
+plt.xlabel("Years of Service")
+plt.ylabel("Performance Score")
+plt.legend()
+plt.grid()
+plt.show()
+
+#Bar Chart – Employees by Department
+dept_counts = df["Department"].value_counts()
+
+plt.figure()
+plt.bar(dept_counts.index, dept_counts.values)
+plt.title("Employee Distribution by Department")
+plt.xlabel("Department")
+plt.ylabel("Number of Employees")
+plt.show()
+
+#Scatter Plot – Years vs Performance
+plt.figure()
+plt.scatter(df["Years_of_Service"], df["Performance_Score"])
+plt.title("Years of Service vs Performance Score")
+plt.xlabel("Years of Service")
+plt.ylabel("Performance Score")
+plt.grid()
+plt.show()
+
