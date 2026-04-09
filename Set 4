@@ -1,0 +1,21 @@
+# Data
+product <- c("A","B","C","D","E")
+qty <- c(250,175,300,200,220)
+
+# 1. Bar Chart
+barplot(qty, names.arg=product,
+        main="Product Inventory",
+        xlab="Product", ylab="Quantity")
+
+# 2. Stacked Bar Chart (with categories)
+category <- c("Electronics","Electronics","Clothing","Clothing","Grocery")
+barplot(table(category, product),
+        main="Product Category Distribution",
+        xlab="Category", ylab="Count")
+
+# 3. Scatter Plot (Price vs Quantity)
+price <- c(100,150,80,120,110)
+plot(price, qty,
+     main="Price vs Quantity",
+     xlab="Price", ylab="Quantity")
+abline(lm(qty ~ price))
