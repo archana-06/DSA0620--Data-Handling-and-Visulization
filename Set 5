@@ -1,0 +1,37 @@
+# Data
+date <- as.Date(c("2023-01-01","2023-01-02","2023-01-03",
+                  "2023-01-04","2023-01-05"))
+views <- c(1500,1600,1400,1650,1800)
+ctr <- c(2.3,2.7,2.0,2.4,2.6)
+
+# 1. Line Chart
+plot(date, views, type="o",
+     main="Daily Page Views",
+     xlab="Date", ylab="Page Views")
+
+# 2. Bar Chart (Top CTR Days)
+barplot(ctr, names.arg=date,
+        main="Click-through Rate by Day",
+        xlab="Date", ylab="CTR (%)")
+
+# 3. Stacked Area Chart (Sample interactions)
+likes <- c(100,120,90,130,150)
+shares <- c(50,60,40,70,80)
+comments <- c(30,40,20,35,45)
+
+# Create stacked values
+stack1 <- likes
+stack2 <- likes + shares
+stack3 <- likes + shares + comments
+
+plot(date, stack3, type="n",
+     main="User Interactions",
+     xlab="Date", ylab="Count")
+
+polygon(c(date, rev(date)), c(stack3, rev(stack2)), col="lightblue")
+polygon(c(date, rev(date)), c(stack2, rev(stack1)), col="lightgreen")
+polygon(c(date, rev(date)), c(stack1, rep(0,5)), col="pink")
+
+legend("topleft",
+       legend=c("Likes","Shares","Comments"),
+       fill=c("pink","lightgreen","lightblue"))
