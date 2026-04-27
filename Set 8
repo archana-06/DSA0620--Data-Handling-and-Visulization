@@ -1,0 +1,30 @@
+
+
+#SET 8
+# Data
+emp_id <- c(1,2,3)
+dept <- c("Sales","HR","Marketing")
+years <- c(5,3,7)
+perf <- c(85,92,78)
+
+# Create data frame
+data <- data.frame(emp_id, dept, years, perf)
+
+# 1. Line Chart
+data_sorted <- data[order(data$years), ]
+plot(data_sorted$years, data_sorted$perf, type="o",
+     main="Performance Trend",
+     xlab="Years of Service",
+     ylab="Performance Score",
+     col="blue", pch=16)
+
+# 2. Bar Chart
+barplot(table(data$dept),
+        main="Employees by Department",
+        xlab="Department",
+        ylab="Count",
+        col=c("skyblue","orange","lightgreen"))
+
+# 3. Table
+data
+
