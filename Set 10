@@ -1,0 +1,28 @@
+
+
+#SET 10
+# Data
+Q1 <- c("A","B","C")
+Q2 <- c("B","A","A")
+Q3 <- c("C","D","B")
+
+data <- data.frame(Q1, Q2, Q3)
+
+# 1. Grouped Bar Chart (Q1)
+barplot(table(Q1),
+        main="Question 1 Responses",
+        xlab="Options", ylab="Count",
+        col="skyblue")
+
+# 2. Stacked Bar Chart (All Questions)
+resp <- rbind(table(Q1), table(Q2), table(Q3))
+barplot(resp,
+        main="Overall Survey Responses",
+        xlab="Options", ylab="Count",
+        col=c("red","blue","green"),
+        legend=c("Q1","Q2","Q3"))
+
+# 3. Table
+data
+
+
