@@ -1,0 +1,26 @@
+
+#SET12
+# Data
+date <- as.Date(c("2023-01-01","2023-01-02","2023-01-03"))
+views <- c(1500,1600,1400)
+ctr <- c(2.3,2.7,2.0)
+
+data <- data.frame(date, views, ctr)
+
+# 1. Line Chart
+plot(date, views, type="o",
+     main="Daily Page Views",
+     xlab="Date", ylab="Page Views",
+     col="blue", pch=16)
+
+# 2. Bar Chart (CTR)
+barplot(ctr, names.arg=date,
+        main="Click-through Rate",
+        xlab="Date", ylab="CTR (%)",
+        col="orange")
+
+# 3. Table
+data
+
+
+
