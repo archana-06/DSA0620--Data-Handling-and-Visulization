@@ -1,0 +1,157 @@
+
+
+#SET21
+# Data
+sector <- c("Residential","Commercial","Industrial",
+            "Residential","Commercial","Industrial")
+region <- c("North","South","West","East","North","South")
+month <- c("Jan","Jan","Feb","Feb","Mar","Mar")
+temp <- c(15,24,20,18,28,30)
+units <- c(320,540,880,350,610,920)
+cost <- c(2100,3600,5900,2300,4100,6200)
+renew <- c(22,18,12,25,20,15)
+peak <- c(4,6,8,5,7,9)
+
+data <- data.frame(sector, region, month, temp, units, cost, renew, peak)
+
+# 1. Histogram + Density
+hist(units, prob=TRUE,
+     main="Units Consumed Distribution",
+     xlab="Units (kWh)",
+     col="lightgray")
+lines(density(units), col="orange", lwd=2)
+
+# 2. Scatter Plot (Bubble)
+symbols(temp, units,
+        circles=peak,
+        inches=0.2,
+        bg="purple",
+        main="Temp vs Units",
+        xlab="Temperature",
+        ylab="Units Consumed")
+
+# 3. Avg Renewable Usage (Bar Chart)
+avg <- tapply(renew, sector, mean)
+barplot(avg,
+        main="Avg Renewable Usage by Sector",
+        xlab="Sector",
+        ylab="Percentage",
+        col="gold")
+
+# Data Table
+data
+
+
+
+
+
+
+
+#SET22
+# Data
+month <- c("Jan","Feb","Mar","Apr","May")
+sales <- c(15000,18000,22000,20000,23000)
+ad <- c(2000,2500,3000,2700,3200)   # sample advertising budget
+
+# 1. Time Series Line Chart
+ts_data <- ts(sales)
+plot(ts_data, type="o",
+     main="Monthly Sales Trend",
+     xlab="Month", ylab="Sales",
+     col="darkorange", lwd=2)
+
+# 2. Scatter Plot (Ad vs Sales)
+plot(ad, sales,
+     main="Ad Budget vs Sales",
+     xlab="Advertising Budget",
+     ylab="Sales",
+     col="purple", pch=16)
+
+# 3. Autocorrelation Plot
+acf(ts_data,
+    main="Autocorrelation of Sales",
+    col="brown")
+
+
+
+
+
+
+#SET23
+# Data
+id <- c(1,2,3,4,5)
+dept <- c("Sales","HR","Marketing","Sales","HR")
+years <- c(5,3,7,4,2)
+score <- c(85,92,78,90,76)
+
+data <- data.frame(id, dept, years, score)
+
+# 1. Bar Chart (Department Distribution)
+d <- table(dept)
+barplot(d,
+        main="Employees by Department",
+        xlab="Department",
+        ylab="Count",
+        col=c("orange","purple","brown"))
+
+# 2. Line Chart (Performance Trend)
+plot(years, score, type="o",
+     main="Performance vs Experience",
+     xlab="Years of Service",
+     ylab="Performance Score",
+     col="darkorange", pch=16)
+
+# 3. Table
+data
+
+
+
+
+
+
+
+#SET24
+# Data
+id <- c(1,2,3,4,5)
+product <- c("A","B","C","D","E")
+qty <- c(250,175,300,200,220)
+price <- c(20,15,18,22,19)   # assumed prices
+
+data <- data.frame(id, product, qty, price)
+
+# 1. Bar Chart (Quantity)
+barplot(qty,
+        names.arg=product,
+        main="Product Quantity",
+        xlab="Product",
+        ylab="Quantity",
+        col="orange")
+
+# 2. Stacked Bar Chart (Quantity + Price)
+stack_data <- rbind(qty, price)
+barplot(stack_data,
+        names.arg=product,
+        main="Inventory Comparison",
+        xlab="Product",
+        ylab="Values",
+        col=c("gold","purple"))
+legend("topright", legend=c("Quantity","Price"),
+       fill=c("gold","purple"))
+
+# 3. Scatter Plot (Price vs Quantity)
+plot(price, qty,
+     main="Price vs Quantity",
+     xlab="Price",
+     ylab="Quantity",
+     col="brown", pch=16)
+
+# Table
+data
+
+
+
+
+
+
+
+
