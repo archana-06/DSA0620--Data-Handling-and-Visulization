@@ -1,0 +1,285 @@
+
+#SET25
+# Data
+date <- as.Date(c("2023-01-01","2023-01-02","2023-01-03",
+                  "2023-01-04","2023-01-05"))
+views <- c(1500,1600,1400,1650,1800)
+ctr <- c(2.3,2.7,2.0,2.4,2.6)
+
+# 1. Bar Chart (Top CTR Days)
+top <- order(ctr, decreasing=TRUE)[1:3]
+barplot(ctr[top],
+        names.arg=date[top],
+        main="Top CTR Days",
+        xlab="Date",
+        ylab="CTR (%)",
+        col="orange")
+
+# 2. Stacked Area Chart (Interactions - assumed data)
+likes <- c(200,250,180,220,300)
+shares <- c(100,120,90,110,150)
+comments <- c(50,60,40,55,70)
+
+x <- 1:5
+plot(x, likes+shares+comments, type="n",
+     main="User Interactions",
+     xlab="Day", ylab="Count")
+
+polygon(c(x,rev(x)), c(likes+shares+comments, rev(likes+shares)), col="gold")
+polygon(c(x,rev(x)), c(likes+shares, rev(likes)), col="purple")
+polygon(c(x,rev(x)), c(likes, rep(0,5)), col="brown")
+legend("topleft",
+       legend=c("Likes","Shares","Comments"),
+       fill=c("gold","purple","brown"))
+
+
+
+
+
+
+
+
+#SET26
+# Data
+id <- c("S01","S02","S03","S04","S05","S06")
+gender <- c("Male","Female","Male","Female","Male","Female")
+study <- c(2.0,3.5,1.5,4.0,2.8,3.0)
+att <- c(78,90,70,95,85,92)
+math <- c(62,80,55,90,72,82)
+sci <- c(65,85,58,92,74,86)
+date <- as.Date(c("2025-01-10","2025-01-10",
+                  "2025-02-12","2025-02-12",
+                  "2025-03-15","2025-03-15"))
+
+data <- data.frame(id, gender, study, att, math, sci, date)
+
+# 1. Histogram (Math Score)
+hist(math,
+     main="Math Score Distribution",
+     xlab="Math Score",
+     col="lightgray")
+
+# Boxplot (Science Score by Gender)
+boxplot(sci ~ gender,
+        main="Science Score by Gender",
+        xlab="Gender",
+        ylab="Score",
+        col=c("orange","purple"))
+
+# 2. Scatter Plot with Regression
+plot(study, math,
+     col=ifelse(gender=="Male","brown","darkorange"),
+     pch=16,
+     main="Study Hours vs Math Score",
+     xlab="Study Hours",
+     ylab="Math Score")
+abline(lm(math~study), col="black", lwd=2)
+
+# 3. Monthly Avg + Line Chart
+month <- format(date, "%Y-%m")
+avg <- tapply(math, month, mean)
+
+plot(as.numeric(avg), type="o",
+     main="Monthly Avg Math Score",
+     xlab="Month",
+     ylab="Average Score",
+     col="purple")
+
+# Moving Average
+lines(filter(avg, rep(1/2,2), sides=1),
+      col="brown", lwd=2)
+
+# Table
+data
+
+
+
+
+
+
+
+#SET27
+# Data
+age <- c(25,40,55,35,60)
+bmi <- c(22,28,30,26,32)
+bp <- c(120,135,145,130,150)
+chol <- c(180,210,240,200,260)
+
+data <- data.frame(age, bmi, bp, chol)
+
+# 1. Scatterplot Matrix
+pairs(data,
+      main="Health Indicators Matrix",
+      col="purple", pch=16)
+
+# 2. Q-Q Plot (Cholesterol)
+qqnorm(chol,
+       main="Q-Q Plot (Cholesterol)",
+       col="brown")
+qqline(chol, col="orange", lwd=2)
+
+# ECDF
+plot(ecdf(chol),
+     main="ECDF of Cholesterol",
+     xlab="Cholesterol",
+     ylab="Cumulative Probability",
+     col="darkorange")
+
+# 3. Bar Chart (Average Values)
+avg <- c(mean(age), mean(bmi), mean(bp), mean(chol))
+names(avg) <- c("Age","BMI","BP","Cholesterol")
+
+barplot(avg,
+        main="Average Health Indicators",
+        xlab="Indicators",
+        ylab="Average Value",
+        col=c("gold","purple","brown","orange"))
+
+# Table
+data
+
+
+
+
+
+#SET28
+# Data
+engine <- c(1.5,2.0,3.0,2.5,1.8)
+hp <- c(110,150,250,200,130)
+fuel <- c(18,15,12,14,17)
+speed <- c(180,200,250,220,190)
+safety <- c(4,5,5,4,3)
+
+data <- data.frame(engine, hp, fuel, speed, safety)
+
+# 1. Violin Plot (use boxplot as simple alternative)
+boxplot(fuel ~ safety,
+        main="Fuel Efficiency by Safety Rating",
+        xlab="Safety Rating",
+        ylab="Fuel Efficiency",
+        col=c("gold","purple","orange"))
+
+# 2. Scatter Plot (HP vs Speed)
+plot(hp, speed,
+     col=engine,
+     pch=16,
+     main="Horsepower vs Top Speed",
+     xlab="Horsepower",
+     ylab="Top Speed")
+legend("topleft",
+       legend=unique(engine),
+       col=unique(engine), pch=16)
+
+# 3. Correlation Heatmap
+corr <- cor(data)
+heatmap(corr,
+        main="Correlation Heatmap",
+        col=heat.colors(10))
+
+
+
+
+
+
+
+
+
+#SET29
+# Data
+id <- c("S1","S2","S3","S4","S5")
+age <- c(19,21,20,22,23)
+study <- c(12,8,15,10,7)
+att <- c(90,70,95,85,60)
+test <- c(85,70,92,80,65)
+part <- c(8,7,9,8,6)
+
+data <- data.frame(id, age, study, att, test, part)
+
+# 1. Stacked Area Chart
+x <- 1:5
+plot(x, test+part, type="n",
+     main="Scores Across Students",
+     xlab="Students", ylab="Score")
+
+polygon(c(x,rev(x)), c(test+part, rev(test)),
+        col="gold")
+polygon(c(x,rev(x)), c(test, rep(0,5)),
+        col="purple")
+legend("topleft",
+       legend=c("Test","Participation"),
+       fill=c("purple","gold"))
+
+# 2. Boxplot (Study Hours by Attendance Quartiles)
+quart <- cut(att, breaks=quantile(att),
+             include.lowest=TRUE)
+
+boxplot(study ~ quart,
+        main="Study Hours by Attendance Quartiles",
+        xlab="Attendance Quartile",
+        ylab="Study Hours",
+        col=c("orange","brown","gold","purple"))
+
+# 3. Density Plot (Test Score)
+plot(density(test),
+     main="Density of Test Scores",
+     xlab="Test Score",
+     col="darkorange", lwd=2)
+
+# Table
+data
+
+
+
+
+
+
+
+
+
+
+#SET30
+# Data
+id <- c("U01","U02","U03","U04","U05","U06")
+gender <- c("Male","Female","Male","Female","Male","Female")
+age <- c(20,22,19,21,23,20)
+screen <- c(4.5,6.0,3.2,7.1,2.8,5.4)
+usage <- c(18,25,12,30,10,22)
+data_used <- c(2.4,3.8,1.6,4.5,1.2,3.1)
+satisfaction <- c(3,5,3,5,2,4)
+
+data <- data.frame(id, gender, age, screen, usage, data_used, satisfaction)
+
+# 1. Histogram + Density
+hist(screen,
+     col="gold",
+     main="Screen Time Distribution",
+     xlab="Screen Time (hrs)",
+     prob=TRUE)
+
+lines(density(screen),
+      col="purple", lwd=2)
+
+# 2. Scatter Plot + Correlation
+plot(data_used, screen,
+     pch=16,
+     col="orange",
+     main="Data Used vs Screen Time",
+     xlab="Data Used (GB)",
+     ylab="Screen Time (hrs)")
+
+abline(lm(screen ~ data_used),
+       col="brown", lwd=2)
+
+correlation <- cor(data_used, screen)
+correlation
+
+# 3. Average Satisfaction by Gender
+avg_sat <- tapply(satisfaction, gender, mean)
+
+barplot(avg_sat,
+        col=c("purple","gold"),
+        main="Average Satisfaction by Gender",
+        ylab="Satisfaction Score")
+
+# Add value labels
+text(1:2, avg_sat, labels=round(avg_sat,2), pos=3)
