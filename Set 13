@@ -1,0 +1,24 @@
+
+#SET13
+# Data
+city <- c("City A","City B","City C")
+pop <- c(500000,700000,600000)
+temp <- c(75,68,80)
+elev <- c(1000,800,1200)
+
+data <- data.frame(city, pop, temp, elev)
+
+# 1. Map-like Chart (using elevation vs population)
+plot(elev, pop, pch=16, col="blue",
+     main="City Distribution",
+     xlab="Elevation", ylab="Population")
+text(elev, pop, labels=city, pos=3)
+
+# 2. Scatter Plot (Temp vs Population)
+plot(temp, pop, pch=16, col="red",
+     main="Temperature vs Population",
+     xlab="Avg Temperature", ylab="Population")
+abline(lm(pop ~ temp), col="blue")
+
+# 3. Table
+data
