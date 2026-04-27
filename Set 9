@@ -1,0 +1,39 @@
+
+#SET 9
+# Data
+Quiz_Score <- c(78,85,65,92,70,88)
+Course <- c("R","R","SQL","R","R","SQL")
+Study_Time <- c(3.5,4.2,2.0,5.0,2.5,4.0)
+
+# 1. Histogram
+hist(Quiz_Score,
+     col="skyblue",
+     main="Quiz Score Distribution",
+     xlab="Score")
+
+# 2. Boxplot
+boxplot(Quiz_Score ~ Course,
+        col=c("lightgreen","orange"),
+        main="Score by Course")
+
+# 3. Scatter Plot
+plot(Study_Time, Quiz_Score,
+     col="red", pch=16,
+     main="Study Time vs Score")
+
+# 4. Line Chart (Monthly Avg)
+Login_Date <- as.Date(c("2025-01-05","2025-01-05",
+                        "2025-02-08","2025-02-08",
+                        "2025-03-12","2025-03-12"))
+
+month <- format(Login_Date, "%Y-%m")
+avg <- tapply(Quiz_Score, month, mean)
+
+plot(1:length(avg), avg, type="o",
+     col="blue", pch=16,
+     xaxt="n", xlab="Month", ylab="Avg Score")
+axis(1, at=1:length(avg), labels=names(avg))
+
+
+
+
